@@ -1,18 +1,46 @@
-let opcion = prompt("Elige una opción: \n1. Realizar la conversión de pesos Argentinos a dolares \n2. Salir");
-if (opcion === "1") 
-    pesos = prompt("¿Cual es el mmonto que queres convertir?");
-    pesos = parseFloat(pesos);
-    
-    
+const dolarTasa = 1300; 
+let historial=[];
+let opcion ;
 
-let dolarTasa = 1300; 
-let dolares = (pesos / dolarTasa);
-alert("La conversión es de " + dolares.toFixed(2) + " dólares.");
+function convertirDivisa(pesos) {
+    return pesos / dolarTasa;
+}
 
+while (opcion !== "2"){
+    opcion = prompt("1-Divisa   2-Salir");
 
+    switch (opcion) {
+        case "1":
+             let monto = prompt("Ingrese la cantidad en pesos argentinos (ARS):");
 
-//let pesoArgentino = prompt ("Ingrese una cantidad en pesos Argentinos");
-//pesos = parseFloat(pesos);
-//let dolar = 1300; 
-//let dolares = (pesos / dolar);
-//alert("La converdion es de " + dolares + " dólares.");
+             if ( monto <= 0) {
+                alert("Debe ingresar un número válido mayor a cero.");
+            }else {
+                let USD = convertirDivisa(monto);
+                let result = USD.toFixed(2);
+                
+                alert(monto + " tus pesos equivalen a " + result + " USD");
+
+                let operacion = {
+                tipo: "divisa",
+                entrada: monto + " ARS",
+                salida: result + " USD",
+                fecha: new Date()
+                };
+
+                historial.push(operacion);
+            } 
+        break;
+
+        case "2":
+            alert("Gracias por divizar con dolarDiego");
+            console.log("Historial de usuario: ")
+            console.log(historial)
+        break;
+
+        default:
+            alert("opcion no reconocida, ingrese nuevamente el 1 o 2")
+
+        break;
+    }
+}
